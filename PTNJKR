@@ -1,0 +1,174 @@
+#1) Desenvolva um algoritmo que sorteie 6 números entre 1 e 60, armazene estes números em um vetor e peça para o usuário digitar 6 números (não pode repetir) entre 1 e 60, após, verifique se o usuário acertou os 6 números, caso sim, diga que ele ganhou na me-gasena, caso tenha acertado 5 diga que ele ganhou na quina, caso 4 diga que ele acertou a quadra, caso contrário, informe ao usuário quantos números ele acertou, e apresente para ele os valores sorteados. Ao final, pergunte ao usuário se ele deseja jogar novamen-te e implemente esta funcionalidade.
+
+from random import randint
+
+def sorteio():
+
+#----------------------------------------------------------
+    Sorteio = []
+    Escolhidos = []
+#----------------------------------------------------------
+
+    for i in range(6):
+        Sorteio.append(randint(1,60))
+
+    for i in range(6):
+        escolha = int((input("DIGITE O {}º NÚMERO: ".format(i +1))))
+        if escolha >= 1 and escolha <= 60:
+            if escolha in Escolhidos:
+                print("NÃO REPITA OS NUMEROS, POR FAVOR JOGUE NOVAMENTE")
+                return (sorteio())
+            else:
+                print("{} SAVE".format(escolha))
+                Escolhidos.append(escolha)
+        else:
+            print("DIGITE NÚMEROS APENAS ENTRE 1 E 60")
+            return (sorteio())
+
+    print("SUA ESCOLHA FOI {}".format(Escolhidos))
+    print("OS NUMEROS PREMIADOS SÃO {}".format(Sorteio))
+
+    acertos = []
+    for i in range(6):
+        teste = Escolhidos[i]
+        if teste in Sorteio:
+            acertos.append(teste)
+        else:
+            pass
+    if len(acertos) == 6:
+        print("PARABÉNS, VOCÊ É O GANHADOR DA MEGA SENA")
+    elif len(acertos) == 5:
+        print("PARABÉNS, VOCÊ É O GANHOU NA QUINA")
+        print("ACERTOS: {}".format(acertos))
+    elif len(acertos) == 4 :
+        print("PARABÉNS, VOCÊ É O GANHOU NA QUADRA")
+        print("ACERTOS: {}".format(acertos))
+    elif len(acertos) <= 3 and len(acertos) > 0 :
+        print("VOCÊ ACERTOU {} NUMEROS, DOS QUAIS FORAM {}".format(len(acertos), acertos))
+    else:
+        print("INFELIZMENTE VOCÊ NÃO TEVE SORTE E NÃO ACERTOU NENHUM NÚMERO")
+
+sorteio()
+
+
+
+
+
+
+
+#2) Faça um algoritmo que recebe uma matriz A[5][5] e retorna a soma dos seus elementos, o valor médio de seus elementos, a soma de cada uma das linhas, a soma dos valores de cada uma das colunas.
+
+from random import randint
+
+#----------------------------------------------------------
+
+matriz=[]
+
+#----------------------------------------------------------
+
+for i in range(5):
+    linha=[]
+    for j in range(5):
+        linha.append(randint(1,9))
+    matriz.append(linha)
+
+
+for i in range(5):
+    print(matriz[i])
+soma_total=0
+soma_linhas=[]
+soma_colunas=[]
+
+
+for i in range(len(matriz[i])):
+    soma_linha=0
+    for j in range(len(matriz[i])):
+        soma_linha+=matriz[i][j]
+        if matriz[i][j]:
+            soma_total+=matriz[i][j]
+        if i==0:
+            soma_colunas.append(matriz[i][j])
+        else:
+            soma_colunas[j]+=matriz[i][j]
+    soma_linhas.append(soma_linha)
+
+#----------------------------------------------------------
+
+print('SOMA {}'.format(soma_total))
+print('MÉDIA {}'.format(soma_total/25))
+
+print('SOMA LINHAS: ')
+print(soma_linhas)
+print('SOMA COLUNAS: ')
+print(soma_colunas)
+
+
+
+#3) Faça um algoritmo que recebe duas matrizes A[5][5] e B[5][5]. O algoritmo deve percorrer as duas matrizes comparando os valores na posição e criar uma terceira matriz C[5][5] com o maiorvalor de cada posição, uma matriz D[5][5] com o menor valor em cada posição e uma matriz E[5][5] com o valor médio de cada posição.
+
+from random import randint
+#---------------------------------------------------------
+A = []
+
+B = []
+
+C = []
+
+D = []
+#----------------------------------------------------------
+for i in range(5):
+    line = []
+    for j in range(5):
+        line.append(randint(1,9))
+    A.append(line)
+
+
+for i in range(5):
+    line = []
+    for j in range(5):
+        line.append(randint(1,9))
+    B.append(line)
+
+
+for i in range(len(A)):
+    LC = []
+    LD = []
+    for j in range(len(A)):
+        if A[i][j] > B[i][j]:
+            LC.append(A[i][j])
+            LD.append(B[i][j])
+        else:
+            LD.append(A[i][j])
+            LC.append(B[i][j])
+    C.append(LC)
+    D.append(LD)
+
+#---------------------------------------------------------
+print(A)
+print('--'*20)
+print(B)
+print('--'*20)
+print(C)
+print('--'*20)
+print(D)
+
+
+
+
+
+#4) Escreva um algoritmo que solicita ao usuário quantos números ele deseja digitar, armazene os valores em um vetor. Apresente o vetor na ordem inversa.
+
+print("INVERSO")
+#----------------------------------------------------------
+Vetor = []
+#----------------------------------------------------------
+
+tamanho = int(input("DIGITE O TAMANHO DO VETOR: "))
+
+for i in range(tamanho):
+    valor = int(input("DIGITE O {}º VALOR:".format(i + 1)))
+    Vetor.append(valor)
+
+cont = len(Vetor) -1
+while cont >= 0:
+    print(Vetor[cont])
