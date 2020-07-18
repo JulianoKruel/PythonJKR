@@ -1,8 +1,16 @@
 #1) Desenvolva um algoritmo que sorteie 6 números entre 1 e 60, armazene estes números em um vetor e peça para o usuário digitar 6 números (não pode repetir) entre 1 e 60, após, verifique se o usuário acertou os 6 números, caso sim, diga que ele ganhou na me-gasena, caso tenha acertado 5 diga que ele ganhou na quina, caso 4 diga que ele acertou a quadra, caso contrário, informe ao usuário quantos números ele acertou, e apresente para ele os valores sorteados. Ao final, pergunte ao usuário se ele deseja jogar novamen-te e implemente esta funcionalidade.
 
+###### Você colocou tudo numa função só. Ao longo do código vou mostrar o que isso atrapalhou (se eu entendi a sua lógica)
+
 from random import randint
 
+
+##### a função sorteio deve cuidar somente do sorteio
+
 def sorteio():
+
+###### essas variáveis são desnecessárias globalmente. creio que você quis definir elas para todo o escopo da função sorteio 
+###### que é todo o programa, no momento. melhor prática é enviar parâmetros onde eles são necessários
 
 #----------------------------------------------------------
     Sorteio = []
@@ -10,14 +18,37 @@ def sorteio():
 #----------------------------------------------------------
 
     for i in range(6):
+    
+###### a lista permite elementos repetidos. seria interessante resguardar que não vai entrar elemento repetido no sorteio.
+###### pode ser raro, mas vai acontecer... melhor usar um set para o sorteio, e verificar quando o conjunto está no tamanho esperado
+
         Sorteio.append(randint(1,60))
+
+###### a função sorteio acabaria aqui, retornado o conjunto sorteado
+
+
+###### seria interessante que a entrada de dados estivesse numa função separada, e retorna-se um conjunto para a função principal. 
+###### de novo, se os elementos de escolhido devem ser únicos, usar set para escolhidos, e verificar quando o conjunto está no tamanho desejado
+
+###### def entrada():
+###### você precisa que a entrada seja preenchida.
+###### usar um while com a condição que o conjunto tenha 6 elementos
 
     for i in range(6):
         escolha = int((input("DIGITE O {}º NÚMERO: ".format(i +1))))
         if escolha >= 1 and escolha <= 60:
             if escolha in Escolhidos:
                 print("NÃO REPITA OS NUMEROS, POR FAVOR JOGUE NOVAMENTE")
+                
+                ###### usando while, no ponto onde encontrar erro na entrada de dados, basta usar "continue"
+                ###### ele vai repetir o processo e desprezar a entrada "errada"
+                
+                ######## num erro de repetição de números você está começando tudo de novo,
+                ######## zerando e refazendo sorteio, zerando e recomeçando a entrada de dados
+                ######## é isso mesmo que se quer?
+                
                 return (sorteio())
+                
             else:
                 print("{} SAVE".format(escolha))
                 Escolhidos.append(escolha)
@@ -25,8 +56,16 @@ def sorteio():
             print("DIGITE NÚMEROS APENAS ENTRE 1 E 60")
             return (sorteio())
 
+######## esses prints devem ficar numa função main(), um guia claro do que o programa faz
+######## def main():
+########     megasena = sorteio()
+########     escolhidos = entrada()
+
     print("SUA ESCOLHA FOI {}".format(Escolhidos))
     print("OS NUMEROS PREMIADOS SÃO {}".format(Sorteio))
+
+######## para saber o número de acertos, usando conjuntos, basta verificar o tamanho da intersecção
+######## acertos = megasena - escolhidos
 
     acertos = []
     for i in range(6):
@@ -35,6 +74,9 @@ def sorteio():
             acertos.append(teste)
         else:
             pass
+            
+########
+
     if len(acertos) == 6:
         print("PARABÉNS, VOCÊ É O GANHADOR DA MEGA SENA")
     elif len(acertos) == 5:
@@ -48,6 +90,8 @@ def sorteio():
     else:
         print("INFELIZMENTE VOCÊ NÃO TEVE SORTE E NÃO ACERTOU NENHUM NÚMERO")
 
+##### sorteio será chamado da main() e fará só o que precisa fazer...
+##### main()
 sorteio()
 
 
@@ -56,15 +100,25 @@ sorteio()
 
 
 
-#2) Faça um algoritmo que recebe uma matriz A[5][5] e retorna a soma dos seus elementos, o valor médio de seus elementos, a soma de cada uma das linhas, a soma dos valores de cada uma das colunas.
+#2) Faça um algoritmo que recebe uma matriz A[5][5] e retorna a soma dos seus elementos, o valor médio de seus elementos, 
+# a soma de cada uma das linhas, a soma dos valores de cada uma das colunas.
 
 from random import randint
 
 #----------------------------------------------------------
 
+######## acho que você desenvolveu o programa para um vetor. matriz=[][]
+######## está confuso entender como vai chegar no resultado. o professor pediu pra receber os números
+######## mas você gerou eles randomicamente...
+
 matriz=[]
 
 #----------------------------------------------------------
+
+
+####### dê uma olhada na "fabricação" de listas, list comprehensions
+####### https://realpython.com/list-comprehension-python/
+####### linha = [randint(1,9) for j in range(5)]
 
 for i in range(5):
     linha=[]
@@ -75,6 +129,7 @@ for i in range(5):
 
 for i in range(5):
     print(matriz[i])
+
 soma_total=0
 soma_linhas=[]
 soma_colunas=[]
@@ -105,6 +160,10 @@ print(soma_colunas)
 
 
 #3) Faça um algoritmo que recebe duas matrizes A[5][5] e B[5][5]. O algoritmo deve percorrer as duas matrizes comparando os valores na posição e criar uma terceira matriz C[5][5] com o maiorvalor de cada posição, uma matriz D[5][5] com o menor valor em cada posição e uma matriz E[5][5] com o valor médio de cada posição.
+
+
+
+##########   era pra receber os dados e você gerou aleatoriamente.....
 
 from random import randint
 #---------------------------------------------------------
@@ -157,6 +216,11 @@ print(D)
 
 
 #4) Escreva um algoritmo que solicita ao usuário quantos números ele deseja digitar, armazene os valores em um vetor. Apresente o vetor na ordem inversa.
+
+
+
+#######  você precisa ler melhor a questão. você só executou a primeira parte (errada) do que o professor pediu.
+#######  faltou receber a quantidade de dados digitada e imprimir na inversa.
 
 print("INVERSO")
 #----------------------------------------------------------
